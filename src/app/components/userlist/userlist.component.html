@@ -1,0 +1,41 @@
+<div class="main-body">
+  <div class="nav-bar">
+    <div class="nav-icon">
+      <span class="title-case"> User list</span>
+    </div>
+    <div class="nav-icon">
+      <button class="icon-btn" (click)="navigate('/register')">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </div>
+  </div>
+  <div class="no-data" *ngIf="userData?.length == 0">No records</div>
+  <table class="table" *ngIf="userData?.length != 0">
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th>DOB</th>
+      <th>Role</th>
+      <th>Phone</th>
+      <th>Gender</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let i of userData; let ind = index">
+      <td>{{ i.name }}</td>
+      <td style="width: 30%">{{ i.address }}</td>
+      <td>{{ i.dob | date: "dd/MM/yyyy" }}</td>
+      <td>{{ i.role }}</td>
+      <td>
+        <div *ngFor="let ph of i?.phone">
+          {{ ph?.countryCode }} {{ ph?.phoneNumber }}
+        </div>
+      </td>
+      <td>{{ i.gender }}</td>
+      <td>
+        <div class="del" (click)="deleteUser(ind)">
+          <i class="fas fa-trash-alt"></i>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>

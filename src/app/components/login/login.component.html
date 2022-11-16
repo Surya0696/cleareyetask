@@ -1,0 +1,202 @@
+<div class="main-body">
+  <div class="col-cont-1">
+    <div class="login-content">
+      <div class="login-title">
+        <div class="wel">Welcome back!</div>
+        <h4 class="view" (click)="navigate('/dashboard')">Dashboard</h4>
+      </div>
+
+      <form [formGroup]="userForm">
+        <div class="row">
+          <div class="col-sm-6">
+            <label>Name</label>
+            <input
+              name="name"
+              type="text"
+              class="form-control"
+              formControlName="name"
+            />
+            <div
+              *ngIf="
+                userForm.get('name')!.dirty || userForm.get('name')!.touched
+              "
+            >
+              <div
+                *ngIf="userForm.get('name')!.errors?.['required']"
+                class="fieldinvalid"
+              >
+                This field is required
+              </div>
+              <div
+                *ngIf="userForm.get('name')!.errors?.['pattern']"
+                class="fieldinvalid"
+              >
+                Only alphabets are allowed
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <label>Gender</label>
+            <div class="gender-radio">
+              Male<input
+                id="male"
+                value="male"
+                type="radio"
+                class="form-check-input"
+                formControlName="gender"
+              />
+              Female<input
+                id="female"
+                type="radio"
+                value="female"
+                class="form-check-input"
+                formControlName="gender"
+              />
+            </div>
+            <div
+              *ngIf="
+                userForm.get('gender')!.dirty || userForm.get('gender')!.touched
+              "
+            >
+              <div
+                *ngIf="userForm.get('gender')!.errors?.['required']"
+                class="fieldinvalid"
+              >
+                This field is required
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <label>Date of birth</label>
+            <input
+              name="password"
+              type="date"
+              class="form-control"
+              formControlName="dob"
+            />
+            <div
+              *ngIf="userForm.get('dob')!.dirty || userForm.get('dob')!.touched"
+            >
+              <div
+                *ngIf="userForm.get('dob')!.errors?.['required']"
+                class="fieldinvalid"
+              >
+                This field is required
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <label>Role</label>
+            <select name="role" class="form-control" formControlName="role">
+              <option>Admin</option>
+              <option>Developer</option>
+              <option>Human Resource - HR</option>
+              <option>Manager</option>
+            </select>
+            <div
+              *ngIf="
+                userForm.get('role')!.dirty || userForm.get('role')!.touched
+              "
+            >
+              <div
+                *ngIf="userForm.get('role')!.errors?.['required']"
+                class="fieldinvalid"
+              >
+                This field is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="row"
+          *ngFor="let phoneGroup of userForm.get('phone').controls"
+          [formGroup]="phoneGroup"
+        >
+          <div class="col-sm-6">
+            <label>Country code</label>
+            <select
+              name="code"
+              class="form-control"
+              formControlName="countryCode"
+            >
+              <option *ngFor="let code of countries" value="{{ code?.code }}">
+                {{ code?.code }} {{ code?.name }}
+              </option>
+            </select>
+            <div
+              *ngIf="
+                phoneGroup.get('countryCode')!.dirty ||
+                phoneGroup.get('countryCode')!.touched
+              "
+            >
+              <div
+                *ngIf="phoneGroup.get('countryCode')!.errors?.['required']"
+                class="fieldinvalid"
+              >
+                This field is required
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <label>Phone Number</label>
+            <input
+              name="number"
+              type="number"
+              class="form-control"
+              formControlName="phoneNumber"
+            />
+            <div
+              *ngIf="
+                phoneGroup.get('phoneNumber')!.dirty ||
+                phoneGroup.get('phoneNumber')!.touched
+              "
+            >
+              <div
+                *ngIf="phoneGroup.get('phoneNumber')!.errors?.['required']"
+                class="fieldinvalid"
+              >
+                This field is required
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <label>Address</label>
+            <textarea
+              name="address"
+              class="form-control address-area"
+              formControlName="address"
+            ></textarea>
+            <div
+              *ngIf="
+                userForm.get('address')!.dirty ||
+                userForm.get('address')!.touched
+              "
+            >
+              <div
+                *ngIf="userForm.get('address')!.errors?.['required']"
+                class="fieldinvalid"
+              >
+                This field is required
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="btn-ctrl">
+        <button
+          class="btn btn-login"
+          [disabled]="userForm.invalid"
+          (click)="submit()"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
